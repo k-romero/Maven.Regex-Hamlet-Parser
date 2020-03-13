@@ -1,6 +1,10 @@
+import com.sun.xml.internal.rngom.digested.DGroupPattern;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by thook on 10/7/15.
@@ -23,7 +27,6 @@ public class HamletParser {
                 String line = scanner.nextLine();
                 result.append(line).append("\n");
             }
-
             scanner.close();
         }catch(IOException e){
             e.printStackTrace();
@@ -36,4 +39,25 @@ public class HamletParser {
         return hamletData;
     }
 
+    public Integer findOccurrencesOfWord(String regex, String textToSearch){
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(textToSearch);
+        int count = 0;
+        while(m.find()){
+           count++;
+        }
+        return count;
+    }
+
+    public boolean findIfWordOccurs(String regex, String textToSearch) {
+       Pattern p = Pattern.compile(regex);
+       Matcher m = p.matcher(textToSearch);
+       return m.find();
+    }
+
+    public void replaceWord(String regex, String textToSearch, String textToReplace){
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(textToSearch);
+        hamletData = m.replaceAll(textToReplace);
+    }
 }
